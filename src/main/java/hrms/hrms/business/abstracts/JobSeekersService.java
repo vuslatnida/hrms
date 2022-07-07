@@ -10,10 +10,9 @@ import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import java.util.List;
 
 public interface JobSeekersService {
-    DataResult<List<JobSeekers>> getJobSeekers();
+    DataResult<List<JobSeekers>> getAllJobSeekers();
     Result addJobSeekers(JobSeekersDto jobSeekersDto);
     Result getByIdentificationNoAndEmail(IdentificationNoEmailDto identificationNoEmailDto);
     Result sendEmail(String email);
     Result deleteJobSeeker(IdentificationNoDto identificationNoDto);
-
 }

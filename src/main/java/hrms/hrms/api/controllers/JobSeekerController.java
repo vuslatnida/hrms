@@ -26,10 +26,10 @@ public class JobSeekerController {
     private JobSeekersService jobSeekersService;
 
     @GetMapping("/getAllJobSeekers")
-    public DataResult<List<JobSeekers>> getjobSeekers() {
-
-        return jobSeekersService.getJobSeekers();
+    public DataResult<List<JobSeekers>> getAlljobSeekers() {
+        return jobSeekersService.getAllJobSeekers();
     }
+
     @PostMapping(name = "/addJobSeekers")
     public ResponseEntity<?> addJobSeekers(@Valid @RequestBody JobSeekersDto jobSeekersDto) {
         return ResponseEntity.ok(jobSeekersService.addJobSeekers(jobSeekersDto));
@@ -39,10 +39,12 @@ public class JobSeekerController {
     public ResponseEntity<?> getByIdentificationNoAndEmail(@Valid @RequestBody IdentificationNoEmailDto identificationNoEmailDto) {
         return ResponseEntity.ok(jobSeekersService.getByIdentificationNoAndEmail(identificationNoEmailDto));
     }
+
     @DeleteMapping(name = "/deleteJobSeeker")
     public ResponseEntity<?> deleteJobSeeker(@Valid @RequestBody IdentificationNoDto identificationNoDto) {
         return ResponseEntity.ok(jobSeekersService.deleteJobSeeker(identificationNoDto));
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {

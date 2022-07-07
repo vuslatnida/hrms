@@ -6,11 +6,12 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 @Entity
-@Table(name="employers")
 @Data
+@Table(name="employers")
 @AllArgsConstructor
 @NoArgsConstructor
 public class Employer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="employer_id")

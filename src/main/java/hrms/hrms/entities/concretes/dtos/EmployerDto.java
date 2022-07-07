@@ -44,4 +44,5 @@ public class EmployerDto {
     @NotNull
     @NotBlank
     private String lastName;
+
 }

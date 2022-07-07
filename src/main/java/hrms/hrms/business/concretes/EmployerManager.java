@@ -10,6 +10,7 @@ import hrms.hrms.entities.concretes.Employer;
 import hrms.hrms.entities.concretes.Person;
 import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
+
 import hrms.hrms.entities.concretes.dtos.response.PhoneNoDto;
 import hrms.hrms.entities.concretes.dtos.response.WebMailDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,16 +20,19 @@ import java.util.List;
 
 @Service
 public class EmployerManager implements EmployerService {
+
     @Autowired
     private EmployerDao employerDao;
 
     @Autowired
     private PersonDao personDao;
+
     @Autowired
     private WebMailDao webMailDao;
 
     @Autowired
     private SystemPersonnelDao systemPersonnelDao;
+
     @Override
     public DataResult<List<Employer>> getAllEmployers() {
         return new SuccessDataResult<List<Employer>>(employerDao.findAll(), "İş veren kişilerin bilgileri listelendi.");
@@ -36,10 +40,9 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result addEmployer(EmployerDto employerDto) {
-        if(webMailDao.existsByWebsiteMail(employerDto.getWebsiteMail())){
+        if (webMailDao.existsByWebsiteMail(employerDto.getWebsiteMail())) {
             return new ErrorResult("Bu mail adresi kullanılmaktadır. Kaydınız gerçekleştirilemez.");
-        }
-        else {
+        } else {
             Employer newEmployer = new Employer();
             Person newPerson = new Person();
             SystemPersonnel newSystemPersonnel = new SystemPersonnel();
@@ -78,19 +81,18 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result getByWebsiteMail(WebMailDto webMailDto) {
-        if(webMailDao.existsByWebsiteMail(webMailDto.getWebsiteMail())){
+        if (webMailDao.existsByWebsiteMail(webMailDto.getWebsiteMail())) {
             return new SuccessResult("Web sitesine ait mail adresini kullanan personelin bilgileri getiriliyor.");
-        }
-        else {
+        } else {
             return new ErrorResult("Bu web sitesine ait bir mail adresi bulunmamaktadır.");
         }
     }
+
     @Override
     public Result sendWebEmail(EmployerDto employerDto) {
-        if (webMailDao.existsByWebsiteMail(employerDto.getWebsiteMail())){
+        if (webMailDao.existsByWebsiteMail(employerDto.getWebsiteMail())) {
             return hrmsConfirm(employerDto);
-        }
-        else{
+        } else {
             return new ErrorResult("e-mail doğrulaması gerçekleştirilemedi.");
         }
     }

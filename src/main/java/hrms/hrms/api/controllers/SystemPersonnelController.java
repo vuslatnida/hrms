@@ -21,8 +21,10 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/systempersonnel")
 public class SystemPersonnelController {
+
     @Autowired
     private SystemPersonnelService systemPersonnelService;
+
     @GetMapping("/getAllSystemPersonnel")
     public DataResult<List<SystemPersonnel>> getAllSystemPersonnel(){
         return systemPersonnelService.getSystemPersonnel();
@@ -42,6 +44,7 @@ public class SystemPersonnelController {
     public ResponseEntity<?> getBySystemPersonnel(@RequestParam PositionDto positionDto){
         return ResponseEntity.ok(systemPersonnelService.getBySystemPersonnel(positionDto));
     }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){

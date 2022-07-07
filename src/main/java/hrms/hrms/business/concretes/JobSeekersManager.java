@@ -19,8 +19,10 @@ import java.util.List;
 
 @Service
 public class JobSeekersManager implements JobSeekersService {
+
     @Autowired
     private JobSeekersDao jobSeekersDao;
+
     @Autowired
     private IdentificationNoEmailDao identificationNoEmailDao;
 
@@ -29,10 +31,12 @@ public class JobSeekersManager implements JobSeekersService {
 
     @Autowired
     private SystemPersonnelDao systemPersonnelDao;
+
     @Override
-    public DataResult<List<JobSeekers>> getJobSeekers() {
+    public DataResult<List<JobSeekers>> getAllJobSeekers() {
         return new SuccessDataResult<List<JobSeekers>>(jobSeekersDao.findAll(), "İş arayan kişilerin bilgileri listelendi");
     }
+
     @Override
     public Result addJobSeekers(JobSeekersDto jobSeekersDto) {
         if (identificationNoEmailDao.existsByIdentificationNo(jobSeekersDto.getIdentificationNo()) || identificationNoEmailDao.existsByEmail(jobSeekersDto.getEmail())) {
@@ -72,6 +76,7 @@ public class JobSeekersManager implements JobSeekersService {
             return new ErrorResult("Bu TC kimlik numarası veya Email adresi kullanılmamaktadır.");
         }
     }
+
     @Override
     public Result sendEmail(String email) {
         if (identificationNoEmailDao.existsByEmail(email)){

@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class JobSeekers {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="jobseeker_id")

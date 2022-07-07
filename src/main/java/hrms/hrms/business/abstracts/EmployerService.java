@@ -12,7 +12,6 @@ import java.util.List;
 
 public interface EmployerService {
     DataResult<List<Employer>> getAllEmployers();
-
     Result addEmployer(EmployerDto employerDto);
     Result deleteEmployer(PhoneNoDto phoneNoDto);
     Result getByWebsiteMail(WebMailDto webMailDto);

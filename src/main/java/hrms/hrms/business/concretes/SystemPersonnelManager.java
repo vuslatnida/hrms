@@ -24,6 +24,7 @@ public class SystemPersonnelManager implements SystemPersonnelService {
 
     @Autowired
     private PersonDao personDao;
+
     @Override
     public DataResult<List<SystemPersonnel>> getSystemPersonnel() {
         return new SuccessDataResult<List<SystemPersonnel>>(this.systemPersonnelDao.findAll(), "Sistem personeli bilgileri listelendi.");

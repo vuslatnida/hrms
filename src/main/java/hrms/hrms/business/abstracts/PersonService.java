@@ -7,6 +7,5 @@ import java.util.List;
 
 public interface PersonService {
     DataResult<List<Person>> getAllPersons();
-
     DataResult<List<Person>> getByFirstNameContains(String firstName);
 }

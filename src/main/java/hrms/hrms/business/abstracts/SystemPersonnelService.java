@@ -13,5 +13,4 @@ public interface SystemPersonnelService {
     Result addSystemPersonnel(SystemPersonnelDto systemPersonnelDto);
     Result deleteSystemPersonnel(int id, PositionDto positionDto);
     Result getBySystemPersonnel(PositionDto positionDto);
-
 }
