@@ -12,7 +12,6 @@ import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
 
 import hrms.hrms.entities.concretes.dtos.response.PhoneNoDto;
-import hrms.hrms.entities.concretes.dtos.response.WebMailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,8 +39,8 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result addEmployer(EmployerDto employerDto) {
-        if (webMailDao.existsByWebsiteMail(employerDto.getWebsiteMail())) {
-            return new ErrorResult("Bu mail adresi kullanılmaktadır. Kaydınız gerçekleştirilemez.");
+        if (webMailDao.existsByWebsiteMail(employerDto.getWebsiteMail()) || employerDao.existsByPhoneNo(employerDto.getPhoneNo())) {
+            return new ErrorResult("Mail adresinizi veya telefon numaranızı kontrol ediniz. Kaydınız gerçekleştirilemedi.");
         } else {
             Employer newEmployer = new Employer();
             Person newPerson = new Person();
@@ -74,17 +73,31 @@ public class EmployerManager implements EmployerService {
             employerDao.deleteById(phoneNoDto.getId());
             return new SuccessResult("Kişi listeden silindi.");
         }
+
         else{
             return new ErrorResult("Kişi listeden silinemedi.");
         }
     }
 
     @Override
-    public Result getByWebsiteMail(WebMailDto webMailDto) {
-        if (webMailDao.existsByWebsiteMail(webMailDto.getWebsiteMail())) {
-            return new SuccessResult("Web sitesine ait mail adresini kullanan personelin bilgileri getiriliyor.");
-        } else {
-            return new ErrorResult("Bu web sitesine ait bir mail adresi bulunmamaktadır.");
+    public DataResult<List<Employer>> getByCompanyNameContains(String companyName) {
+        if (employerDao.existsByCompanyName(companyName)) {
+            return new ErrorDataResult<List<Employer>>("Kullanıcı bulunamadı.");
+        }
+
+        else {
+            return new SuccessDataResult<List<Employer>>(employerDao.getByCompanyNameContains(companyName), "Data listelendi.");
+        }
+    }
+
+    @Override
+    public DataResult<List<Employer>> getByWebsiteMailContains(String webMail) {
+        if (employerDao.existsByWebsiteMail(webMail)) {
+            return new ErrorDataResult<List<Employer>>("Kullanıcı bulunamadı.");
+        }
+
+        else {
+            return new SuccessDataResult<List<Employer>>(employerDao.getByWebsiteMailContains(webMail), "Data listelendi.");
         }
     }
 

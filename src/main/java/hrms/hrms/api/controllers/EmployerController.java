@@ -6,7 +6,6 @@ import hrms.hrms.core.utilities.results.ErrorDataResult;
 import hrms.hrms.entities.concretes.Employer;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
 import hrms.hrms.entities.concretes.dtos.response.PhoneNoDto;
-import hrms.hrms.entities.concretes.dtos.response.WebMailDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,9 +40,14 @@ public class EmployerController {
         return ResponseEntity.ok(employerService.deleteEmployer(phoneNoDto));
     }
 
-    @GetMapping(name = "/getByWebsiteMail")
-    public ResponseEntity<?> getByWebsiteMail(@RequestParam WebMailDto webMailDto) {
-        return ResponseEntity.ok(employerService.getByWebsiteMail(webMailDto));
+    @GetMapping("/getByWebsiteMailContains")
+    public DataResult<List<Employer>> getByWebsiteMailContains(@RequestParam String webMail){
+        return employerService.getByWebsiteMailContains(webMail);
+    }
+
+    @GetMapping("/getByCompanyNameContains")
+    public DataResult<List<Employer>> getByCompanyNameContains(@RequestParam String companyName){
+        return employerService.getByCompanyNameContains(companyName);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

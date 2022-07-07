@@ -40,9 +40,9 @@ public class SystemPersonnelController {
         return ResponseEntity.ok(systemPersonnelService.deleteSystemPersonnel(id, positionDto));
     }
 
-    @PutMapping(name = "/getBySystemPersonnel")
-    public ResponseEntity<?> getBySystemPersonnel(@RequestParam PositionDto positionDto){
-        return ResponseEntity.ok(systemPersonnelService.getBySystemPersonnel(positionDto));
+    @GetMapping("/getByProductNameContains")
+    public DataResult<List<SystemPersonnel>> getByJobpositionContains(@RequestParam String jobPosition){
+        return systemPersonnelService.getByJobpositionContains(jobPosition);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

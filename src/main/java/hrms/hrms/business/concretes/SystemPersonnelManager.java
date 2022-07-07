@@ -63,13 +63,13 @@ public class SystemPersonnelManager implements SystemPersonnelService {
     }
 
     @Override
-    public Result getBySystemPersonnel(PositionDto positionDto) {
-        if(positionDao.existsByJobposition(positionDto.getJob_position())){
-            return new SuccessResult("Bu pozisyonda çalışan bir eleman bulunmaktadır.");
+    public DataResult<List<SystemPersonnel>> getByJobpositionContains(String jobPosition) {
+        if (systemPersonnelDao.existsByJobposition(jobPosition)) {
+            return new ErrorDataResult<List<SystemPersonnel>>("Kullanıcı bulunamadı.");
         }
 
         else {
-            return new ErrorResult("Bu pozisyonda çalışan bir eleman bulunmamaktadır.");
+            return new SuccessDataResult<List<SystemPersonnel>>(systemPersonnelDao.getByJobpositionContains(jobPosition), "Data listelendi.");
         }
     }
 }

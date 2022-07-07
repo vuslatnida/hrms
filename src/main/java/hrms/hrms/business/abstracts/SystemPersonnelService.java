@@ -12,5 +12,5 @@ public interface SystemPersonnelService {
     DataResult<List<SystemPersonnel>> getSystemPersonnel();
     Result addSystemPersonnel(SystemPersonnelDto systemPersonnelDto);
     Result deleteSystemPersonnel(int id, PositionDto positionDto);
-    Result getBySystemPersonnel(PositionDto positionDto);
+    DataResult<List<SystemPersonnel>> getByJobpositionContains(String jobPosition);
 }

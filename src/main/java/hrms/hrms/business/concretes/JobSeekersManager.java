@@ -10,7 +10,6 @@ import hrms.hrms.entities.concretes.JobSeekers;
 import hrms.hrms.entities.concretes.Person;
 import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.response.IdentificationNoDto;
-import hrms.hrms.entities.concretes.dtos.response.IdentificationNoEmailDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +41,7 @@ public class JobSeekersManager implements JobSeekersService {
         if (identificationNoEmailDao.existsByIdentificationNo(jobSeekersDto.getIdentificationNo()) || identificationNoEmailDao.existsByEmail(jobSeekersDto.getEmail())) {
             return new ErrorResult("Kişinin e-mail veya TC kimlik numarasını tekrardan kontrol ediniz. Kişi listeye eklenemedi.");
         }
+
         else {
             JobSeekers newJobSeekers = new JobSeekers();
             Person newPerson = new Person();
@@ -63,17 +63,8 @@ public class JobSeekersManager implements JobSeekersService {
             systemPersonnelDao.save(newSystemPersonnel);
             personDao.save(newPerson);
             jobSeekersDao.save(newJobSeekers);
-            return sendEmail(jobSeekersDto.getEmail());
-        }
-    }
 
-    @Override
-    public Result getByIdentificationNoAndEmail(IdentificationNoEmailDto identificationNoEmailDto){
-        if(identificationNoEmailDao.existsByIdentificationNo(identificationNoEmailDto.getIdentificationNo()) || identificationNoEmailDao.existsByEmail(identificationNoEmailDto.getEmail())){
-            return new SuccessResult("Bu TC kimlik numarası veya Email adresi bir başkasına aittir.");
-        }
-        else{
-            return new ErrorResult("Bu TC kimlik numarası veya Email adresi kullanılmamaktadır.");
+            return sendEmail(jobSeekersDto.getEmail());
         }
     }
 
@@ -82,6 +73,7 @@ public class JobSeekersManager implements JobSeekersService {
         if (identificationNoEmailDao.existsByEmail(email)){
             return new SuccessResult(email + " e-mail adresine doğrulama için e-mail gönderildi. Kayıt gerçekleştiriliyor.");
         }
+
         else{
             return new ErrorResult("e-mail doğrulaması gerçekleştirilemedi.");
         }
@@ -93,8 +85,20 @@ public class JobSeekersManager implements JobSeekersService {
             jobSeekersDao.deleteById(identificationNoDto.getId());
             return new SuccessResult("Kişi listeden silindi.");
         }
+
         else{
             return new ErrorResult("Kişi listeden silinemedi.");
+        }
+    }
+
+    @Override
+    public DataResult<List<JobSeekers>> getByIdentificationNoContains(String identificationNo) {
+        if (jobSeekersDao.existsByIdentificationNoContains(identificationNo)) {
+            return new SuccessDataResult<List<JobSeekers>>(jobSeekersDao.getByIdentificationNoContains(identificationNo), "Data listelendi.");
+        }
+
+        else {
+            return new ErrorDataResult<List<JobSeekers>>("Kullanıcı bulunamadı.");
         }
     }
 }

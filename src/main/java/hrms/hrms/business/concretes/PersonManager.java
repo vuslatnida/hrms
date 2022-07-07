@@ -24,12 +24,12 @@ public class PersonManager implements PersonService {
 
     @Override
     public DataResult<List<Person>> getByFirstNameContains(String firstName) {
-        if(personDao.existsByFirstName(firstName)){
-            return new SuccessDataResult<List<Person>>(personDao.getByFirstNameContains(firstName),"Data listelendi.");
-
+        if (personDao.existsByFirstName(firstName)) {
+            return new ErrorDataResult<List<Person>>("Kullanıcı bulunamadı.");
         }
+
         else {
-            return  new ErrorDataResult<List<Person>>("Kullanıcı bulunamadı.");
+            return new SuccessDataResult<List<Person>>(personDao.getByFirstNameContains(firstName), "Data listelendi.");
         }
     }
 }

@@ -4,7 +4,6 @@ import hrms.hrms.business.abstracts.JobSeekersService;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.entities.concretes.JobSeekers;
 import hrms.hrms.entities.concretes.dtos.response.IdentificationNoDto;
-import hrms.hrms.entities.concretes.dtos.response.IdentificationNoEmailDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,14 +34,14 @@ public class JobSeekerController {
         return ResponseEntity.ok(jobSeekersService.addJobSeekers(jobSeekersDto));
     }
 
-    @PutMapping(name = "/getByIdentificationNoAndEmail")
-    public ResponseEntity<?> getByIdentificationNoAndEmail(@Valid @RequestBody IdentificationNoEmailDto identificationNoEmailDto) {
-        return ResponseEntity.ok(jobSeekersService.getByIdentificationNoAndEmail(identificationNoEmailDto));
-    }
-
     @DeleteMapping(name = "/deleteJobSeeker")
     public ResponseEntity<?> deleteJobSeeker(@Valid @RequestBody IdentificationNoDto identificationNoDto) {
         return ResponseEntity.ok(jobSeekersService.deleteJobSeeker(identificationNoDto));
+    }
+
+    @GetMapping("/getByIdentificationNoContains")
+    public DataResult<List<JobSeekers>> getByIdentificationNoContains(@RequestParam String identificationNo){
+        return jobSeekersService.getByIdentificationNoContains(identificationNo);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
