@@ -6,7 +6,7 @@ import hrms.hrms.entities.concretes.Employer;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
 import hrms.hrms.entities.concretes.dtos.response.PhoneNoDto;
 
-
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface EmployerService {
@@ -17,4 +17,5 @@ public interface EmployerService {
     DataResult<List<Employer>> getByWebsiteMailContains(String webMail);
     Result sendWebEmail(EmployerDto employerDto);
     Result hrmsConfirm(EmployerDto employerDto);
+    Result exportToExcelEmployer(HttpServletResponse response);
 }

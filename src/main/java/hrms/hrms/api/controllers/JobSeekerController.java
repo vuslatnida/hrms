@@ -12,7 +12,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,6 +44,11 @@ public class JobSeekerController {
     @GetMapping("/getByIdentificationNoContains")
     public DataResult<List<JobSeekers>> getByIdentificationNoContains(@RequestParam String identificationNo){
         return jobSeekersService.getByIdentificationNoContains(identificationNo);
+    }
+
+    @GetMapping("/exportToExcelJobSeekers(")
+    public ResponseEntity<?> exportToExcelJobSeekers(HttpServletResponse response) throws IOException {
+        return ResponseEntity.ok(jobSeekersService.exportToExcelJobSeekers(response));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

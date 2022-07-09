@@ -2,6 +2,7 @@ package hrms.hrms.business.concretes;
 
 import hrms.hrms.business.abstracts.JobSeekersService;
 import hrms.hrms.core.dataAccess.abstracts.IdentificationNoEmailDao;
+import hrms.hrms.core.utilities.excelHelper.JobSeekerListExcelHelper;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.dataAccess.abstracts.JobSeekersDao;
 import hrms.hrms.dataAccess.abstracts.PersonDao;
@@ -14,6 +15,10 @@ import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -99,6 +104,27 @@ public class JobSeekersManager implements JobSeekersService {
 
         else {
             return new ErrorDataResult<List<JobSeekers>>("Kullanıcı bulunamadı.");
+        }
+    }
+
+    @Override
+    public Result exportToExcelJobSeekers(HttpServletResponse response) {
+        try {
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+            String currentDateTime = dateFormatter.format(new Date());
+            String fileName = "employer-list-" + currentDateTime;
+
+            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+            response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName+".xlsx");
+
+            JobSeekerListExcelHelper jobSeekerListExcelHelper = new JobSeekerListExcelHelper(jobSeekersDao.findAll());
+            jobSeekerListExcelHelper.export(response);
+            return new SuccessResult(getAllJobSeekers().toString());
+        }
+
+        catch (Exception ex){
+            return new ErrorResult("Bilinmeyen Bir Hata Oluştu");
         }
     }
 }
