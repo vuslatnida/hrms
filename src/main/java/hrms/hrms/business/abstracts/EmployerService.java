@@ -4,7 +4,7 @@ import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.Result;
 import hrms.hrms.entities.concretes.Employer;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
-import hrms.hrms.entities.concretes.dtos.response.PhoneNoDto;
+import hrms.hrms.entities.concretes.dtos.request.PhoneNoDto;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;

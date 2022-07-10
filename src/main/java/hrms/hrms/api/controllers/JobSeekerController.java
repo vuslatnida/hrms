@@ -3,7 +3,7 @@ package hrms.hrms.api.controllers;
 import hrms.hrms.business.abstracts.JobSeekersService;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.entities.concretes.JobSeekers;
-import hrms.hrms.entities.concretes.dtos.response.IdentificationNoDto;
+import hrms.hrms.entities.concretes.dtos.request.IdentificationNoDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

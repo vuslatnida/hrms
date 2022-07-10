@@ -11,7 +11,7 @@ import hrms.hrms.dataAccess.abstracts.SystemPersonnelDao;
 import hrms.hrms.entities.concretes.JobSeekers;
 import hrms.hrms.entities.concretes.Person;
 import hrms.hrms.entities.concretes.SystemPersonnel;
-import hrms.hrms.entities.concretes.dtos.response.IdentificationNoDto;
+import hrms.hrms.entities.concretes.dtos.request.IdentificationNoDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

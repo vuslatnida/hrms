@@ -8,7 +8,7 @@ import hrms.hrms.dataAccess.abstracts.SystemPersonnelDao;
 import hrms.hrms.entities.concretes.Person;
 import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.SystemPersonnelDto;
-import hrms.hrms.entities.concretes.dtos.response.PositionDto;
+import hrms.hrms.entities.concretes.dtos.request.PositionDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -3,7 +3,7 @@ package hrms.hrms.business.abstracts;
 import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.Result;
 import hrms.hrms.entities.concretes.JobSeekers;
-import hrms.hrms.entities.concretes.dtos.response.IdentificationNoDto;
+import hrms.hrms.entities.concretes.dtos.request.IdentificationNoDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 
 import javax.servlet.http.HttpServletResponse;

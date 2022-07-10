@@ -5,7 +5,7 @@ import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.ErrorDataResult;
 import hrms.hrms.entities.concretes.Employer;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
-import hrms.hrms.entities.concretes.dtos.response.PhoneNoDto;
+import hrms.hrms.entities.concretes.dtos.request.PhoneNoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

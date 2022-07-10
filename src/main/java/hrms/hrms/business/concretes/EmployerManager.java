@@ -13,7 +13,7 @@ import hrms.hrms.entities.concretes.Person;
 import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
 
-import hrms.hrms.entities.concretes.dtos.response.PhoneNoDto;
+import hrms.hrms.entities.concretes.dtos.request.PhoneNoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
