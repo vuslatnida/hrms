@@ -18,4 +18,5 @@ public interface EmployerService {
     Result sendWebEmail(EmployerDto employerDto);
     Result hrmsConfirm(EmployerDto employerDto);
     Result exportToExcelEmployer(HttpServletResponse response);
+    Result exportToPdfEmployer(HttpServletResponse response);
 }

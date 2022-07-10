@@ -57,6 +57,11 @@ public class EmployerController {
         return ResponseEntity.ok(employerService.exportToExcelEmployer(response));
     }
 
+    @GetMapping("/exportToPdfEmployer")
+    public ResponseEntity<?> exportToPdfEmployer(HttpServletResponse response) throws IOException {
+        return ResponseEntity.ok(employerService.exportToPdfEmployer(response));
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions){

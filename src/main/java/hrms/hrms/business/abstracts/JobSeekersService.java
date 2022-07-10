@@ -16,4 +16,5 @@ public interface JobSeekersService {
     Result deleteJobSeeker(IdentificationNoDto identificationNoDto);
     DataResult<List<JobSeekers>> getByIdentificationNoContains(String identificationNo);
     Result exportToExcelJobSeekers(HttpServletResponse response);
+    Result exportToPdfJobSeekers(HttpServletResponse response);
 }

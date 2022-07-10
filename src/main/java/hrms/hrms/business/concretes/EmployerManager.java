@@ -3,6 +3,7 @@ package hrms.hrms.business.concretes;
 import hrms.hrms.business.abstracts.EmployerService;
 import hrms.hrms.core.dataAccess.abstracts.WebMailDao;
 import hrms.hrms.core.utilities.excelHelper.EmployerListExcelHelper;
+import hrms.hrms.core.utilities.pdfHelper.EmployerListPdfHelper;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.dataAccess.abstracts.EmployerDao;
 import hrms.hrms.dataAccess.abstracts.PersonDao;
@@ -137,6 +138,27 @@ public class EmployerManager implements EmployerService {
 
             EmployerListExcelHelper employerListExcelHelper = new EmployerListExcelHelper(employerDao.findAll());
             employerListExcelHelper.export(response);
+            return new SuccessResult(getAllEmployers().toString());
+        }
+
+        catch (Exception ex){
+            return new ErrorResult("Bilinmeyen Bir Hata Oluştu");
+        }
+    }
+
+    @Override
+    public Result exportToPdfEmployer(HttpServletResponse response) {
+        try {
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+            String currentDateTime = dateFormatter.format(new Date());
+            String fileName = "employer-list-" + currentDateTime;
+
+            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+            response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName+".pdf");
+
+            EmployerListPdfHelper employerListPdfHelper = new EmployerListPdfHelper(employerDao.findAll());
+            employerListPdfHelper.export(response);
             return new SuccessResult(getAllEmployers().toString());
         }
 

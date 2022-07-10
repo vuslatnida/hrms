@@ -3,6 +3,7 @@ package hrms.hrms.business.concretes;
 import hrms.hrms.business.abstracts.JobSeekersService;
 import hrms.hrms.core.dataAccess.abstracts.IdentificationNoEmailDao;
 import hrms.hrms.core.utilities.excelHelper.JobSeekerListExcelHelper;
+import hrms.hrms.core.utilities.pdfHelper.JobSeekerListPdfHelper;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.dataAccess.abstracts.JobSeekersDao;
 import hrms.hrms.dataAccess.abstracts.PersonDao;
@@ -120,6 +121,27 @@ public class JobSeekersManager implements JobSeekersService {
 
             JobSeekerListExcelHelper jobSeekerListExcelHelper = new JobSeekerListExcelHelper(jobSeekersDao.findAll());
             jobSeekerListExcelHelper.export(response);
+            return new SuccessResult(getAllJobSeekers().toString());
+        }
+
+        catch (Exception ex){
+            return new ErrorResult("Bilinmeyen Bir Hata Oluştu");
+        }
+    }
+
+    @Override
+    public Result exportToPdfJobSeekers(HttpServletResponse response) {
+        try {
+            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
+            String currentDateTime = dateFormatter.format(new Date());
+            String fileName = "jobSeeker-list-" + currentDateTime;
+
+            response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
+            response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+            response.setHeader("Content-Disposition", "attachment; filename=" + fileName+".pdf");
+
+            JobSeekerListPdfHelper jobSeekerListPdfHelper = new JobSeekerListPdfHelper(jobSeekersDao.findAll());
+            jobSeekerListPdfHelper.export(response);
             return new SuccessResult(getAllJobSeekers().toString());
         }
 

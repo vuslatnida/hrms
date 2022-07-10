@@ -46,9 +46,14 @@ public class JobSeekerController {
         return jobSeekersService.getByIdentificationNoContains(identificationNo);
     }
 
-    @GetMapping("/exportToExcelJobSeekers(")
+    @GetMapping("/exportToExcelJobSeekers")
     public ResponseEntity<?> exportToExcelJobSeekers(HttpServletResponse response) throws IOException {
         return ResponseEntity.ok(jobSeekersService.exportToExcelJobSeekers(response));
+    }
+
+    @GetMapping("/exportToPdfJobSeekers")
+    public ResponseEntity<?> exportToPdfJobSeekers(HttpServletResponse response) throws IOException {
+        return ResponseEntity.ok(jobSeekersService.exportToPdfJobSeekers(response));
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
