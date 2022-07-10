@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 public class EmployerListExcelHelper {
 
-    public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
     static String[] HEADERs = { "First Name", "Last Name", "Company Name", "Web Site", "Web Site Mail", "Phone Number", "Password" , "Job Position"};
 
     static String SHEET = "Employers";
@@ -39,6 +37,7 @@ public class EmployerListExcelHelper {
         XSSFFont headerFontStyle = (XSSFFont) workbook.createFont();
         headerFontStyle.setBold(true);
         headerFontStyle.setFontHeight(16);
+        headerFontStyle.setColor(Font.COLOR_RED);
         headerCellStyle.setFont(headerFontStyle);
 
         for (int col = 0; col < HEADERs.length; col++) {
@@ -51,8 +50,8 @@ public class EmployerListExcelHelper {
         CellStyle rowCellStyle = workbook.createCellStyle();
         XSSFFont rowFontStyle = (XSSFFont) workbook.createFont();
         rowFontStyle.setFontHeight(13);
-        rowCellStyle.setFont(rowFontStyle);
         rowFontStyle.setColor(IndexedColors.BLUE.getIndex());
+        rowCellStyle.setFont(rowFontStyle);
 
         for (Employer employee : employers) {
             Row dataRow = sheet.createRow(rowIdx++);

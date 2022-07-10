@@ -12,8 +12,6 @@ import java.util.List;
 
 public class JobSeekerListExcelHelper {
 
-    public static String TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-
     static String[] HEADERs = { "First Name", "Last Name", "Identification Number", "Birth Year", "e - Mail", "Password" , "Job Position"};
 
     static String SHEET = "JobSeekers";
@@ -38,6 +36,7 @@ public class JobSeekerListExcelHelper {
         XSSFFont headerFontStyle = (XSSFFont) workbook.createFont();
         headerFontStyle.setBold(true);
         headerFontStyle.setFontHeight(15);
+        headerFontStyle.setColor(Font.COLOR_RED);
         headerCellStyle.setFont(headerFontStyle);
 
         for (int col = 0; col < HEADERs.length; col++) {
@@ -51,7 +50,7 @@ public class JobSeekerListExcelHelper {
         XSSFFont rowFontStyle = (XSSFFont) workbook.createFont();
         rowFontStyle.setFontHeight(13);
         rowCellStyle.setFont(rowFontStyle);
-        rowFontStyle.setColor(IndexedColors.RED.getIndex());
+        rowFontStyle.setColor(IndexedColors.DARK_YELLOW.getIndex());
 
         for (JobSeekers jobSeeker : jobSeekers) {
             Row dataRow = sheet.createRow(rowIdx++);
