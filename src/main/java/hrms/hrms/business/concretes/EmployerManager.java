@@ -18,9 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -128,9 +125,7 @@ public class EmployerManager implements EmployerService {
     @Override
     public Result exportToExcelEmployer(HttpServletResponse response) {
         try {
-            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-            String currentDateTime = dateFormatter.format(new Date());
-            String fileName = "employer-list-" + currentDateTime;
+            String fileName = "employer-list" ;
 
             response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
             response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
@@ -149,9 +144,7 @@ public class EmployerManager implements EmployerService {
     @Override
     public Result exportToPdfEmployer(HttpServletResponse response) {
         try {
-            DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
-            String currentDateTime = dateFormatter.format(new Date());
-            String fileName = "employer-list-" + currentDateTime;
+            String fileName = "employer-list" ;
 
             response.setHeader("Access-Control-Expose-Headers", "Content-Disposition");
             response.setHeader("Content-Type", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
