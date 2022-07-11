@@ -15,6 +15,8 @@ public interface EmployerDao extends JpaRepository<Employer, Integer> {
 
     boolean existsByWebsiteMail(String webMail);
 
+    Employer findById(int id);
+
     List<Employer> getByCompanyNameContains(String companyName);
 
     List<Employer> getByWebsiteMailContains(String webMail);

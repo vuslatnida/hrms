@@ -52,6 +52,16 @@ public class EmployerController {
         return employerService.getByCompanyNameContains(companyName);
     }
 
+    @GetMapping("/updateEmployerPhoneNo")
+    public ResponseEntity<?> updateEmployerPhoneNo(@RequestParam int id, @RequestParam String phoneNo){
+        return ResponseEntity.ok(employerService.updateEmployerPhoneNo(id,phoneNo));
+    }
+
+    @GetMapping("/updateEmployerPassword")
+    public ResponseEntity<?> updateEmployerPassword(@RequestParam int id, @RequestParam String password){
+        return ResponseEntity.ok(employerService.updateEmployerPassword(id,password));
+    }
+
     @GetMapping("/exportToExcelEmployer")
     public ResponseEntity<?> exportToExcelEmployer(HttpServletResponse response) throws IOException {
         return ResponseEntity.ok(employerService.exportToExcelEmployer(response));

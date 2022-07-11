@@ -118,6 +118,22 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
+    public Result updateEmployerPhoneNo(int id, String phoneNo) {
+        Employer newEmployer = employerDao.findById(id);
+        newEmployer.setPhoneNo(phoneNo);
+        employerDao.save(newEmployer);
+        return new SuccessResult("Kişinin telefon numarası güncellendi.");
+    }
+
+    @Override
+    public Result updateEmployerPassword(int id, String password) {
+        Employer newEmployer = employerDao.findById(id);
+        newEmployer.setPassword(password);
+        employerDao.save(newEmployer);
+        return new SuccessResult("Kişinin şifresi güncellendi.");
+    }
+
+    @Override
     public Result hrmsConfirm(EmployerDto employerDto) {
         return new SuccessResult(employerDto.getWebsiteMail() + " e-mail adresine doğrulama için e-mail gönderildi. HRMS personeli onayı bekleniyor. HRMS personeli tarafından onaylandı. Kişi listeye ekleniyor.");
     }

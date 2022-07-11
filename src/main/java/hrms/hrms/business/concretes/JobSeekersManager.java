@@ -95,6 +95,14 @@ public class JobSeekersManager implements JobSeekersService {
     }
 
     @Override
+    public Result updateJobSeeker(int id, String password) {
+        JobSeekers newJobSeeker = jobSeekersDao.findById(id);
+        newJobSeeker.setPassword(password);
+        jobSeekersDao.save(newJobSeeker);
+        return new SuccessResult("Kişinin şifresi güncellendi.");
+    }
+
+    @Override
     public DataResult<List<JobSeekers>> getByIdentificationNoContains(String identificationNo) {
         if (jobSeekersDao.existsByIdentificationNoContains(identificationNo)) {
             return new SuccessDataResult<List<JobSeekers>>(jobSeekersDao.getByIdentificationNoContains(identificationNo), "Data listelendi.");

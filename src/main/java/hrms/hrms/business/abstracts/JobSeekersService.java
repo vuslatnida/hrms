@@ -14,6 +14,7 @@ public interface JobSeekersService {
     Result addJobSeekers(JobSeekersDto jobSeekersDto);
     Result sendEmail(String email);
     Result deleteJobSeeker(IdentificationNoDto identificationNoDto);
+    Result updateJobSeeker(int id, String password);
     DataResult<List<JobSeekers>> getByIdentificationNoContains(String identificationNo);
     Result exportToExcelJobSeekers(HttpServletResponse response);
     Result exportToPdfJobSeekers(HttpServletResponse response);

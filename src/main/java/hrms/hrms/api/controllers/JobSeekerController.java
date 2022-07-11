@@ -41,6 +41,11 @@ public class JobSeekerController {
         return ResponseEntity.ok(jobSeekersService.deleteJobSeeker(identificationNoDto));
     }
 
+    @GetMapping("/updateJobSeeker")
+    public ResponseEntity<?> updateJobSeeker(@RequestParam int id, @RequestParam  String password){
+        return ResponseEntity.ok(jobSeekersService.updateJobSeeker(id, password));
+    }
+
     @GetMapping("/getByIdentificationNoContains")
     public DataResult<List<JobSeekers>> getByIdentificationNoContains(@RequestParam String identificationNo){
         return jobSeekersService.getByIdentificationNoContains(identificationNo);
