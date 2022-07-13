@@ -5,9 +5,7 @@ import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.ErrorDataResult;
 import hrms.hrms.core.utilities.results.SuccessDataResult;
 import hrms.hrms.dataAccess.abstracts.PersonDao;
-import hrms.hrms.entities.concretes.Employer;
 import hrms.hrms.entities.concretes.Person;
-import hrms.hrms.entities.concretes.dtos.EmployerDto;
 import hrms.hrms.entities.concretes.dtos.PersonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +23,7 @@ public class PersonManager implements PersonService {
         PersonDto newPersonDto = new PersonDto();
         newPersonDto.setFirstName(person.getFirstName());
         newPersonDto.setLastName(person.getLastName());
+
         return newPersonDto;
     }
 

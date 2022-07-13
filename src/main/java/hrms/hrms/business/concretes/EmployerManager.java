@@ -46,6 +46,7 @@ public class EmployerManager implements EmployerService {
         newEmployerDto.setWebsite(employer.getWebsite());
         newEmployerDto.setWebsiteMail(employer.getWebsiteMail());
         newEmployerDto.setCompanyName(employer.getCompanyName());
+
         return newEmployerDto;
     }
 

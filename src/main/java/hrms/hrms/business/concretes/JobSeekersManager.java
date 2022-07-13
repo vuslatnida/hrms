@@ -44,6 +44,7 @@ public class JobSeekersManager implements JobSeekersService {
         newJobSeekersDto.setJobposition(jobSeekers.getSystemPersonnel().getJobposition());
         newJobSeekersDto.setPassword(jobSeekers.getPassword());
         newJobSeekersDto.setIdentificationNo(jobSeekers.getIdentificationNo());
+
         return newJobSeekersDto;
     }
 
