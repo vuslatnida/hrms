@@ -1,7 +1,7 @@
-package hrms.hrms.login.business.concretes;
+package hrms.hrms.core.login.business.concretes;
 
-import hrms.hrms.login.dataAccess.abstracts.UserRepository;
-import hrms.hrms.login.entities.UserModel;
+import hrms.hrms.core.login.dataAccess.abstracts.UserRepository;
+import hrms.hrms.core.login.entities.UserModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

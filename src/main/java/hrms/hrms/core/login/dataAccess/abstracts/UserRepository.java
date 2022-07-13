@@ -1,6 +1,6 @@
-package hrms.hrms.login.dataAccess.abstracts;
+package hrms.hrms.core.login.dataAccess.abstracts;
 
-import hrms.hrms.login.entities.UserModel;
+import hrms.hrms.core.login.entities.UserModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

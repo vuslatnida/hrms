@@ -1,4 +1,4 @@
-package hrms.hrms.login.entities;
+package hrms.hrms.core.login.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

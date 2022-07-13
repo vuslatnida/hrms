@@ -1,7 +1,7 @@
-package hrms.hrms.login.controller;
+package hrms.hrms.core.login.controller;
 
-import hrms.hrms.login.business.concretes.UsersManager;
-import hrms.hrms.login.entities.UserModel;
+import hrms.hrms.core.login.business.concretes.UsersManager;
+import hrms.hrms.core.login.entities.UserModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
