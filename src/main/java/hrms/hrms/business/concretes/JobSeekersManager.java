@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JobSeekersManager implements JobSeekersService {
@@ -34,9 +35,24 @@ public class JobSeekersManager implements JobSeekersService {
     @Autowired
     private SystemPersonnelDao systemPersonnelDao;
 
+    private JobSeekersDto convertEntityToDto(JobSeekers jobSeekers){
+        JobSeekersDto newJobSeekersDto = new JobSeekersDto();
+        newJobSeekersDto.setBirthYear(jobSeekers.getBirthYear());
+        newJobSeekersDto.setEmail(jobSeekers.getEmail());
+        newJobSeekersDto.setFirstName(jobSeekers.getPerson().getFirstName());
+        newJobSeekersDto.setLastName(jobSeekers.getPerson().getLastName());
+        newJobSeekersDto.setJobposition(jobSeekers.getSystemPersonnel().getJobposition());
+        newJobSeekersDto.setPassword(jobSeekers.getPassword());
+        newJobSeekersDto.setIdentificationNo(jobSeekers.getIdentificationNo());
+        return newJobSeekersDto;
+    }
+
     @Override
-    public DataResult<List<JobSeekers>> getAllJobSeekers() {
-        return new SuccessDataResult<List<JobSeekers>>(jobSeekersDao.findAll(), "İş arayan kişilerin bilgileri listelendi");
+    public DataResult<List<JobSeekersDto>> getAllJobSeekers() {
+        return new SuccessDataResult<List<JobSeekersDto>>(jobSeekersDao.findAll()
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList()), "Bilgiler listelendi.");
     }
 
     @Override

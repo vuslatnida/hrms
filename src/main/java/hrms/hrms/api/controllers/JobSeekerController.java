@@ -27,7 +27,7 @@ public class JobSeekerController {
     private JobSeekersService jobSeekersService;
 
     @GetMapping("/getAllJobSeekers")
-    public DataResult<List<JobSeekers>> getAlljobSeekers() {
+    public DataResult<List<JobSeekersDto>> getAlljobSeekers() {
         return jobSeekersService.getAllJobSeekers();
     }
 

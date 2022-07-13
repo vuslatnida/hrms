@@ -2,11 +2,13 @@ package hrms.hrms.entities.concretes.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class EmployerDto {
 
     @NotNull
@@ -44,5 +46,4 @@ public class EmployerDto {
     @NotNull
     @NotBlank
     private String lastName;
-
 }

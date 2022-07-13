@@ -4,6 +4,7 @@ import hrms.hrms.business.abstracts.PersonService;
 import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.ErrorDataResult;
 import hrms.hrms.entities.concretes.Person;
+import hrms.hrms.entities.concretes.dtos.PersonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
@@ -22,7 +23,7 @@ public class PersonController {
     private PersonService personService;
 
     @GetMapping("/getAllPersons")
-    public DataResult<List<Person>> getAllPersons() {
+    public DataResult<List<PersonDto>> getAllPersons() {
         return personService.getAllPersons();
     }
 

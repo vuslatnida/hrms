@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployerManager implements EmployerService {
@@ -35,10 +36,27 @@ public class EmployerManager implements EmployerService {
     @Autowired
     private SystemPersonnelDao systemPersonnelDao;
 
-    @Override
-    public DataResult<List<Employer>> getAllEmployers() {
-        return new SuccessDataResult<List<Employer>>(employerDao.findAll(), "İş veren kişilerin bilgileri listelendi.");
+    private EmployerDto convertEntityToDto(Employer employer){
+        EmployerDto newEmployerDto = new EmployerDto();
+        newEmployerDto.setFirstName(employer.getPerson().getFirstName());
+        newEmployerDto.setLastName(employer.getPerson().getLastName());
+        newEmployerDto.setJobposition(employer.getSystemPersonnel().getJobposition());
+        newEmployerDto.setPassword(employer.getPassword());
+        newEmployerDto.setPhoneNo(employer.getPhoneNo());
+        newEmployerDto.setWebsite(employer.getWebsite());
+        newEmployerDto.setWebsiteMail(employer.getWebsiteMail());
+        newEmployerDto.setCompanyName(employer.getCompanyName());
+        return newEmployerDto;
     }
+
+    @Override
+    public  DataResult<List<EmployerDto>> getAllEmployers() {
+        return new SuccessDataResult<List<EmployerDto>>(employerDao.findAll()
+                .stream()
+                .map(this::convertEntityToDto)
+                .collect(Collectors.toList()), "Bilgiler listelendi.");
+    }
+
 
     @Override
     public Result addEmployer(EmployerDto employerDto) {

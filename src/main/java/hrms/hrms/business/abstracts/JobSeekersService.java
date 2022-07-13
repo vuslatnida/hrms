@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface JobSeekersService {
-    DataResult<List<JobSeekers>> getAllJobSeekers();
+    DataResult<List<JobSeekersDto>> getAllJobSeekers();
     Result addJobSeekers(JobSeekersDto jobSeekersDto);
     Result sendEmail(String email);
     Result deleteJobSeeker(IdentificationNoDto identificationNoDto);

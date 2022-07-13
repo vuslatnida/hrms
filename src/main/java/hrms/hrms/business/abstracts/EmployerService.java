@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface EmployerService {
-    DataResult<List<Employer>> getAllEmployers();
+    DataResult<List<EmployerDto>> getAllEmployers();
     Result addEmployer(EmployerDto employerDto);
     Result deleteEmployer(PhoneNoDto phoneNoDto);
     DataResult<List<Employer>> getByCompanyNameContains(String companyName);

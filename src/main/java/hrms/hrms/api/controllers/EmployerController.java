@@ -28,7 +28,7 @@ public class EmployerController {
     private EmployerService employerService;
 
     @GetMapping("/getAllEmployer")
-    public DataResult<List<Employer>> getAllEmployer(){
+    public DataResult<List<EmployerDto>> getAllEmployer(){
         return employerService.getAllEmployers();
     }
 
