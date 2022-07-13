@@ -65,8 +65,8 @@ public class EmployerManager implements EmployerService {
             newEmployer.setPerson(newPerson);
             newEmployer.setSystemPersonnel(newSystemPersonnel);
 
-            systemPersonnelDao.save(newSystemPersonnel);
-            personDao.save(newPerson);
+            systemPersonnelDao.save(newEmployer.getSystemPersonnel());
+            personDao.save(newEmployer.getPerson());
             employerDao.save(newEmployer);
             return hrmsConfirm(employerDto);
         }
