@@ -29,9 +29,9 @@ public class SystemPersonnelManager implements SystemPersonnelService {
 
     private SystemPersonnelDto convertEntityToDto(SystemPersonnel systemPersonnel){
         SystemPersonnelDto newSystemPersonnelDto = new SystemPersonnelDto();
-        newSystemPersonnelDto.setJobposition(systemPersonnel.getJobposition());
         newSystemPersonnelDto.setFirstName(systemPersonnel.getPerson().getFirstName());
         newSystemPersonnelDto.setLastName(systemPersonnel.getPerson().getLastName());
+        newSystemPersonnelDto.setJobposition(systemPersonnel.getJobposition());
 
         return newSystemPersonnelDto;
     }
