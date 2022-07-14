@@ -103,7 +103,7 @@ public class EmployerManager implements EmployerService {
             systemPersonnelDao.save(newEmployer.getSystemPersonnel());
             personDao.save(newEmployer.getPerson());
             employerDao.save(newEmployer);
-            return hrmsConfirm(employerDto);
+            return new SuccessResult("Kişi listeye eklendi.");
         }
     }
 
@@ -142,17 +142,6 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
-    public Result sendWebEmail(EmployerDto employerDto) {
-        if (webMailDao.existsByWebsiteMail(employerDto.getWebsiteMail())) {
-            return hrmsConfirm(employerDto);
-        }
-
-        else {
-            return new ErrorResult("e-mail doğrulaması gerçekleştirilemedi.");
-        }
-    }
-
-    @Override
     public Result updateEmployerPhoneNo(int id, String phoneNo) {
         Employer newEmployer = employerDao.findById(id);
         newEmployer.setPhoneNo(phoneNo);
@@ -166,11 +155,6 @@ public class EmployerManager implements EmployerService {
         newEmployer.setPassword(password);
         employerDao.save(newEmployer);
         return new SuccessResult("Kişinin şifresi güncellendi.");
-    }
-
-    @Override
-    public Result hrmsConfirm(EmployerDto employerDto) {
-        return new SuccessResult(employerDto.getWebsiteMail() + " e-mail adresine doğrulama için e-mail gönderildi. HRMS personeli onayı bekleniyor. HRMS personeli tarafından onaylandı. Kişi listeye ekleniyor.");
     }
 
     @Override

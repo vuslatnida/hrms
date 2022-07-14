@@ -13,7 +13,6 @@ public interface JobSeekersService {
     DataResult<List<JobSeekersDto>> getAllJobSeekers();
     DataResult <List<JobSeekersDto>> getAllPage(int pageNo, int pageSize);
     Result addJobSeekers(JobSeekersDto jobSeekersDto);
-    Result sendEmail(String email);
     Result deleteJobSeeker(IdentificationNoDto identificationNoDto);
     Result updateJobSeeker(int id, String password);
     DataResult<List<JobSeekers>> getByIdentificationNoContains(String identificationNo);

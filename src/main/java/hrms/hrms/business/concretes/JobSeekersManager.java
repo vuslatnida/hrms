@@ -101,18 +101,7 @@ public class JobSeekersManager implements JobSeekersService {
             personDao.save(newPerson);
             jobSeekersDao.save(newJobSeekers);
 
-            return sendEmail(jobSeekersDto.getEmail());
-        }
-    }
-
-    @Override
-    public Result sendEmail(String email) {
-        if (identificationNoEmailDao.existsByEmail(email)){
-            return new SuccessResult(email + " e-mail adresine doğrulama için e-mail gönderildi. Kayıt gerçekleştiriliyor.");
-        }
-
-        else{
-            return new ErrorResult("e-mail doğrulaması gerçekleştirilemedi.");
+            return new SuccessResult("Kişi listeye eklendi.");
         }
     }
 
