@@ -15,6 +15,8 @@ import hrms.hrms.entities.concretes.dtos.EmployerDto;
 
 import hrms.hrms.entities.concretes.dtos.request.PhoneNoDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -58,6 +60,20 @@ public class EmployerManager implements EmployerService {
                 .collect(Collectors.toList()), "Bilgiler listelendi.");
     }
 
+    @Override
+    public DataResult<List<EmployerDto>> getAllPage(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of((pageNo-1),pageSize);
+
+        if(employerDao.findAll(pageable).getContent().size() == 0){
+            return new ErrorDataResult<List<EmployerDto>>("Kullanıcı bulunamadı.");
+        }
+        else{
+            return new SuccessDataResult<List<EmployerDto>>(employerDao.findAll(pageable).getContent()
+                    .stream()
+                    .map(this::convertEntityToDto)
+                    .collect(Collectors.toList()), "Bilgiler sayfa numarası ve sırasına göre getiriliyor.");
+        }
+    }
 
     @Override
     public Result addEmployer(EmployerDto employerDto) {

@@ -14,6 +14,8 @@ import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.request.IdentificationNoDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
@@ -54,6 +56,21 @@ public class JobSeekersManager implements JobSeekersService {
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList()), "Bilgiler listelendi.");
+    }
+
+    @Override
+    public DataResult<List<JobSeekersDto>> getAllPage(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of((pageNo-1),pageSize);
+
+        if(jobSeekersDao.findAll(pageable).getContent().size() == 0){
+            return new ErrorDataResult<List<JobSeekersDto>>("Kullanıcı bulunamadı.");
+        }
+        else{
+            return new SuccessDataResult<List<JobSeekersDto>>(jobSeekersDao.findAll(pageable).getContent()
+                    .stream()
+                    .map(this::convertEntityToDto)
+                    .collect(Collectors.toList()), "Bilgiler sayfa numarası ve sırasına göre getiriliyor.");
+        }
     }
 
     @Override

@@ -32,6 +32,11 @@ public class EmployerController {
         return employerService.getAllEmployers();
     }
 
+    @GetMapping("/getAllPage")
+    public DataResult<List<EmployerDto>> getAllPage(int pageNo, int pageSize) {
+        return employerService.getAllPage(pageNo,pageSize);
+    }
+
     @PostMapping(name = "/addEmployer")
     public ResponseEntity<?> addEmployer(@Valid @RequestBody EmployerDto employerDto) {
         return ResponseEntity.ok(employerService.addEmployer(employerDto));

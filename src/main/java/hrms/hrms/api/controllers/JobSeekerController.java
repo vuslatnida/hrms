@@ -31,6 +31,11 @@ public class JobSeekerController {
         return jobSeekersService.getAllJobSeekers();
     }
 
+    @GetMapping("/getAllPage")
+    public DataResult<List<JobSeekersDto>> getAllPage(int pageNo, int pageSize) {
+        return jobSeekersService.getAllPage(pageNo,pageSize);
+    }
+
     @PostMapping(name = "/addJobSeekers")
     public ResponseEntity<?> addJobSeekers(@Valid @RequestBody JobSeekersDto jobSeekersDto) {
         return ResponseEntity.ok(jobSeekersService.addJobSeekers(jobSeekersDto));
@@ -65,9 +70,11 @@ public class JobSeekerController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
         Map<String, String> validationErrors = new HashMap<>();
+
         for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
+
         ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları");
         return errors;
     }

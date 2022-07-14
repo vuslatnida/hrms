@@ -8,5 +8,6 @@ import java.util.List;
 
 public interface PersonService {
     DataResult<List<PersonDto>> getAllPersons();
+    DataResult <List<PersonDto>> getAllPage(int pageNo, int pageSize);
     DataResult<List<Person>> getByFirstNameContains(String firstName);
 }

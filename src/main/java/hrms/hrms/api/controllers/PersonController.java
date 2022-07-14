@@ -27,6 +27,11 @@ public class PersonController {
         return personService.getAllPersons();
     }
 
+    @GetMapping("/getAllPage")
+    public DataResult<List<PersonDto>> getAllPage(int pageNo, int pageSize) {
+        return personService.getAllPage(pageNo,pageSize);
+    }
+
     @GetMapping("/getByProductNameContains")
     public DataResult<List<Person>> getByFirstNameContains(@RequestParam String firstName){
         return personService.getByFirstNameContains(firstName);
@@ -36,9 +41,11 @@ public class PersonController {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorDataResult<Object> handleValidationException(MethodArgumentNotValidException exceptions) {
         Map<String, String> validationErrors = new HashMap<String, String>();
+
         for (FieldError fieldError : exceptions.getBindingResult().getFieldErrors()) {
             validationErrors.put(fieldError.getField(), fieldError.getDefaultMessage());
         }
+
         ErrorDataResult<Object> errors = new ErrorDataResult<Object>(validationErrors, "Doğrulama hataları");
         return errors;
     }

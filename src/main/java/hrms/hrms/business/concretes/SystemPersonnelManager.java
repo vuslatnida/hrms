@@ -10,10 +10,11 @@ import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.SystemPersonnelDto;
 import hrms.hrms.entities.concretes.dtos.request.PositionDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class SystemPersonnelManager implements SystemPersonnelService {
@@ -30,6 +31,18 @@ public class SystemPersonnelManager implements SystemPersonnelService {
     @Override
     public DataResult<List<SystemPersonnel>> getAllSystemPersonnel() {
         return new SuccessDataResult<List<SystemPersonnel>>(systemPersonnelDao.findAll(), "Bilgiler listelendi.");
+    }
+
+    @Override
+    public DataResult<List<SystemPersonnel>> getAllPage(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of((pageNo-1),pageSize);
+
+        if(systemPersonnelDao.findAll(pageable).getContent().size() == 0){
+            return new ErrorDataResult<List<SystemPersonnel>>("Kullanıcı bulunamadı.");
+        }
+        else{
+            return new SuccessDataResult<List<SystemPersonnel>>(systemPersonnelDao.findAll(pageable).getContent(),"Bilgiler sayfa numarası ve sırasına göre getiriliyor.");
+        }
     }
 
     @Override

@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface SystemPersonnelService {
     DataResult<List<SystemPersonnel>> getAllSystemPersonnel();
+    DataResult <List<SystemPersonnel>> getAllPage(int pageNo, int pageSize);
     Result addSystemPersonnel(SystemPersonnelDto systemPersonnelDto);
     Result deleteSystemPersonnel(int id, PositionDto positionDto);
     DataResult<List<SystemPersonnel>> getByJobpositionContains(String jobPosition);

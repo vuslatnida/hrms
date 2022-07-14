@@ -8,6 +8,8 @@ import hrms.hrms.dataAccess.abstracts.PersonDao;
 import hrms.hrms.entities.concretes.Person;
 import hrms.hrms.entities.concretes.dtos.PersonDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,6 +35,21 @@ public class PersonManager implements PersonService {
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList()), "Bilgiler listelendi.");
+    }
+
+    @Override
+    public DataResult<List<PersonDto>> getAllPage(int pageNo, int pageSize) {
+        Pageable pageable = PageRequest.of((pageNo-1),pageSize);
+
+        if(personDao.findAll(pageable).getContent().size() == 0){
+            return new ErrorDataResult<List<PersonDto>>("Kullanıcı bulunamadı.");
+        }
+        else{
+            return new SuccessDataResult<List<PersonDto>>(personDao.findAll(pageable).getContent()
+                    .stream()
+                    .map(this::convertEntityToDto)
+                    .collect(Collectors.toList()), "Bilgiler sayfa numarası ve sırasına göre getiriliyor.");
+        }
     }
 
     @Override

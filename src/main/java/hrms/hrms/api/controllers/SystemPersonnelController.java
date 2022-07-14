@@ -30,6 +30,11 @@ public class SystemPersonnelController {
         return systemPersonnelService.getAllSystemPersonnel();
     }
 
+    @GetMapping("/getAllPage")
+    public DataResult<List<SystemPersonnel>> getAllPage(int pageNo, int pageSize) {
+        return systemPersonnelService.getAllPage(pageNo,pageSize);
+    }
+
     @PostMapping(name = "/addSystemPersonnel")
     public ResponseEntity<?> addSystemPersonnel(@Valid @RequestBody SystemPersonnelDto systemPersonnelDto) {
         return ResponseEntity.ok(systemPersonnelService.addSystemPersonnel(systemPersonnelDto));

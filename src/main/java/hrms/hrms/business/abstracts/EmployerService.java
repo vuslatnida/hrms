@@ -11,6 +11,7 @@ import java.util.List;
 
 public interface EmployerService {
     DataResult<List<EmployerDto>> getAllEmployers();
+    DataResult <List<EmployerDto>> getAllPage(int pageNo, int pageSize);
     Result addEmployer(EmployerDto employerDto);
     Result deleteEmployer(PhoneNoDto phoneNoDto);
     DataResult<List<Employer>> getByCompanyNameContains(String companyName);
