@@ -26,7 +26,7 @@ public class SystemPersonnelController {
     private SystemPersonnelService systemPersonnelService;
 
     @GetMapping("/getAllSystemPersonnel")
-    public DataResult<List<SystemPersonnelDto>> getAllSystemPersonnel(){
+    public DataResult<List<SystemPersonnel>> getAllSystemPersonnel(){
         return systemPersonnelService.getAllSystemPersonnel();
     }
 

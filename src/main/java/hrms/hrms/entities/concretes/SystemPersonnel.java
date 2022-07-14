@@ -5,9 +5,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+
 @Data
 @Entity
-@Table(name="systempersonnel")
+@Table(name="system_personnel")
 @AllArgsConstructor
 @NoArgsConstructor
 public class SystemPersonnel {

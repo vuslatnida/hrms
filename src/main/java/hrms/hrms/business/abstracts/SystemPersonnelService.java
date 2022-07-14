@@ -9,7 +9,7 @@ import hrms.hrms.entities.concretes.dtos.request.PositionDto;
 import java.util.List;
 
 public interface SystemPersonnelService {
-    DataResult<List<SystemPersonnelDto>> getAllSystemPersonnel();
+    DataResult<List<SystemPersonnel>> getAllSystemPersonnel();
     Result addSystemPersonnel(SystemPersonnelDto systemPersonnelDto);
     Result deleteSystemPersonnel(int id, PositionDto positionDto);
     DataResult<List<SystemPersonnel>> getByJobpositionContains(String jobPosition);

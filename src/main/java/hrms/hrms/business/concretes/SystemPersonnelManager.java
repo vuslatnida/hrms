@@ -27,21 +27,9 @@ public class SystemPersonnelManager implements SystemPersonnelService {
     @Autowired
     private PersonDao personDao;
 
-    private SystemPersonnelDto convertEntityToDto(SystemPersonnel systemPersonnel){
-        SystemPersonnelDto newSystemPersonnelDto = new SystemPersonnelDto();
-        newSystemPersonnelDto.setFirstName(systemPersonnel.getPerson().getFirstName());
-        newSystemPersonnelDto.setLastName(systemPersonnel.getPerson().getLastName());
-        newSystemPersonnelDto.setJobposition(systemPersonnel.getJobposition());
-
-        return newSystemPersonnelDto;
-    }
-
     @Override
-    public DataResult<List<SystemPersonnelDto>> getAllSystemPersonnel() {
-        return new SuccessDataResult<List<SystemPersonnelDto>>(systemPersonnelDao.findAll()
-                .stream()
-                .map(this::convertEntityToDto)
-                .collect(Collectors.toList()), "Bilgiler listelendi.");
+    public DataResult<List<SystemPersonnel>> getAllSystemPersonnel() {
+        return new SuccessDataResult<List<SystemPersonnel>>(systemPersonnelDao.findAll(), "Bilgiler listelendi.");
     }
 
     @Override
