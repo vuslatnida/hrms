@@ -134,7 +134,7 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
-    public Result updateEmployerPhoneNo(int id, String phoneNo) {
+    public Result updatePhoneNo(int id, String phoneNo) {
         if(employerDao.existsById(id)){
             if(employerDao.existsByPhoneNo(phoneNo)){
                 return new ErrorResult("Bu telefon numarası bir başkasına aittir.");
@@ -159,7 +159,7 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
-    public Result updateEmployerPassword(int id, String password) {
+    public Result updatePassword(int id, String password) {
         if(employerDao.existsById(id)){
             Employer newEmployer = employerDao.findById(id);
             newEmployer.setPassword(password);

@@ -4,7 +4,6 @@ import hrms.hrms.business.abstracts.JobSeekersService;
 import hrms.hrms.core.entities.dtos.JobSeekersGetDto;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.entities.concretes.JobSeekers;
-import hrms.hrms.entities.concretes.dtos.request.IdentificationNoDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,13 +42,13 @@ public class JobSeekerController {
     }
 
     @DeleteMapping(name = "/deleteJobSeeker")
-    public ResponseEntity<?> deleteJobSeeker(@Valid @RequestBody IdentificationNoDto identificationNoDto) {
-        return ResponseEntity.ok(jobSeekersService.deleteJobSeeker(identificationNoDto));
+    public ResponseEntity<?> deleteJobSeeker(@RequestParam int id) {
+        return ResponseEntity.ok(jobSeekersService.deleteJobSeeker(id));
     }
 
-    @GetMapping("/updateJobSeeker")
-    public ResponseEntity<?> updateJobSeeker(@RequestParam int id, @RequestParam  String password){
-        return ResponseEntity.ok(jobSeekersService.updateJobSeeker(id, password));
+    @GetMapping("/updatePassword")
+    public ResponseEntity<?> updatePassword(@RequestParam int id, @RequestParam  String password){
+        return ResponseEntity.ok(jobSeekersService.updatePassword(id, password));
     }
 
     @GetMapping("/getByIdentificationNoContains")

@@ -10,7 +10,6 @@ import hrms.hrms.dataAccess.abstracts.JobSeekersDao;
 import hrms.hrms.dataAccess.abstracts.PersonDao;
 import hrms.hrms.entities.concretes.JobSeekers;
 import hrms.hrms.entities.concretes.Person;
-import hrms.hrms.entities.concretes.dtos.request.IdentificationNoDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -99,23 +98,29 @@ public class JobSeekersManager implements JobSeekersService {
     }
 
     @Override
-    public Result deleteJobSeeker(IdentificationNoDto identificationNoDto) {
-        if(jobSeekersDao.existsByIdAndIdentificationNo(identificationNoDto.getId(), identificationNoDto.getIdentificationNo())){
-            jobSeekersDao.deleteById(identificationNoDto.getId());
+    public Result deleteJobSeeker(int id) {
+        if(jobSeekersDao.existsById(id)){
+            jobSeekersDao.deleteById(id);
             return new SuccessResult("Kişi listeden silindi.");
         }
 
         else{
-            return new ErrorResult("Kişi listeden silinemedi.");
+            return new ErrorResult(id + " id numarasına ait kullanıcı bulunamadı.");
         }
     }
 
     @Override
-    public Result updateJobSeeker(int id, String password) {
-        JobSeekers newJobSeeker = jobSeekersDao.findById(id);
-        newJobSeeker.setPassword(password);
-        jobSeekersDao.save(newJobSeeker);
-        return new SuccessResult("Kişinin şifresi güncellendi.");
+    public Result updatePassword(int id, String password) {
+        if(jobSeekersDao.existsById(id)){
+            JobSeekers newJobSeeker = jobSeekersDao.findById(id);
+            newJobSeeker.setPassword(password);
+            jobSeekersDao.save(newJobSeeker);
+            return new SuccessResult("Kişinin şifresi güncellendi.");
+        }
+
+        else {
+            return new ErrorResult(id + " id numarasına ait bir kullanıcı bulunamadı.");
+        }
     }
 
     @Override

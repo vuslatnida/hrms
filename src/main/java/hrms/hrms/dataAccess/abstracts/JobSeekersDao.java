@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface JobSeekersDao extends JpaRepository<JobSeekers, Integer> {
 
-    boolean existsByIdAndIdentificationNo(int id, String identificationNo);
+    boolean existsById(int id);
 
     boolean existsByIdentificationNoContains(String identificationNo);
 

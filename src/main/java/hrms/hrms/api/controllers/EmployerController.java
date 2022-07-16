@@ -57,14 +57,14 @@ public class EmployerController {
         return employerService.getByCompanyNameContains(companyName);
     }
 
-    @GetMapping("/updateEmployerPhoneNo")
-    public ResponseEntity<?> updateEmployerPhoneNo(@RequestParam int id, @RequestParam String phoneNo){
-        return ResponseEntity.ok(employerService.updateEmployerPhoneNo(id,phoneNo));
+    @GetMapping("/updatePhoneNo")
+    public ResponseEntity<?> updatePhoneNo(@RequestParam int id, @RequestParam String phoneNo){
+        return ResponseEntity.ok(employerService.updatePhoneNo(id,phoneNo));
     }
 
-    @GetMapping("/updateEmployerPassword")
-    public ResponseEntity<?> updateEmployerPassword(@RequestParam int id, @RequestParam String password){
-        return ResponseEntity.ok(employerService.updateEmployerPassword(id,password));
+    @GetMapping("/updatePassword")
+    public ResponseEntity<?> updatePassword(@RequestParam int id, @RequestParam String password){
+        return ResponseEntity.ok(employerService.updatePassword(id,password));
     }
 
     @GetMapping("/exportToExcelEmployer")

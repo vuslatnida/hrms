@@ -16,8 +16,8 @@ public interface EmployerService {
     Result deleteEmployer(int id);
     DataResult<List<Employer>> getByCompanyNameContains(String companyName);
     DataResult<List<Employer>> getByWebsiteMailContains(String webMail);
-    Result updateEmployerPhoneNo(int id, String phoneNo);
-    Result updateEmployerPassword(int id, String password);
+    Result updatePhoneNo(int id, String phoneNo);
+    Result updatePassword(int id, String password);
     Result exportToExcelEmployer(HttpServletResponse response);
     Result exportToPdfEmployer(HttpServletResponse response);
 }
