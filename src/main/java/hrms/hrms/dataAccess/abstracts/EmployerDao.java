@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EmployerDao extends JpaRepository<Employer, Integer> {
 
-    boolean existsByIdAndPhoneNo(int id, String phoneNo);
+    boolean existsById(int id);
 
     boolean existsByPhoneNo(String phoneNumber);
 

@@ -1,11 +1,11 @@
 package hrms.hrms.api.controllers;
 
 import hrms.hrms.business.abstracts.EmployerService;
+import hrms.hrms.core.entities.dtos.EmployerGetDto;
 import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.ErrorDataResult;
 import hrms.hrms.entities.concretes.Employer;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
-import hrms.hrms.entities.concretes.dtos.request.PhoneNoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,12 +28,12 @@ public class EmployerController {
     private EmployerService employerService;
 
     @GetMapping("/getAllEmployer")
-    public DataResult<List<EmployerDto>> getAllEmployer(){
+    public DataResult<List<EmployerGetDto>> getAllEmployer(){
         return employerService.getAllEmployers();
     }
 
     @GetMapping("/getAllPage")
-    public DataResult<List<EmployerDto>> getAllPage(int pageNo, int pageSize) {
+    public DataResult<List<EmployerGetDto>> getAllPage(int pageNo, int pageSize) {
         return employerService.getAllPage(pageNo,pageSize);
     }
 
@@ -43,8 +43,8 @@ public class EmployerController {
     }
 
     @DeleteMapping(name = "/deleteEmployer")
-    public ResponseEntity<?> deleteEmployer(@Valid @RequestBody PhoneNoDto phoneNoDto){
-        return ResponseEntity.ok(employerService.deleteEmployer(phoneNoDto));
+    public ResponseEntity<?> deleteEmployer(@RequestParam int id){
+        return ResponseEntity.ok(employerService.deleteEmployer(id));
     }
 
     @GetMapping("/getByWebsiteMailContains")

@@ -58,7 +58,7 @@ public class EmployerListPdfHelper {
             table.addCell(employee.getWebsiteMail());
             table.addCell(employee.getPhoneNo());
             table.addCell(employee.getPassword());
-            table.addCell(employee.getSystemPersonnel().getJobposition());
+            table.addCell(employee.getPerson().getJobposition());
         }
 
         document.add(table);

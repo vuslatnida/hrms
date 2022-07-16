@@ -5,6 +5,7 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @Entity
 @Table(name="jobseekers")
@@ -33,7 +34,4 @@ public class JobSeekers {
     @JoinColumn(name = "person_id")
     private Person person;
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "system_personnel_id")
-    private SystemPersonnel systemPersonnel;
 }

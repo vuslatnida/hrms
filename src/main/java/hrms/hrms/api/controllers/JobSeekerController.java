@@ -1,6 +1,7 @@
 package hrms.hrms.api.controllers;
 
 import hrms.hrms.business.abstracts.JobSeekersService;
+import hrms.hrms.core.entities.dtos.JobSeekersGetDto;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.entities.concretes.JobSeekers;
 import hrms.hrms.entities.concretes.dtos.request.IdentificationNoDto;
@@ -27,12 +28,12 @@ public class JobSeekerController {
     private JobSeekersService jobSeekersService;
 
     @GetMapping("/getAllJobSeekers")
-    public DataResult<List<JobSeekersDto>> getAlljobSeekers() {
+    public DataResult<List<JobSeekersGetDto>> getAlljobSeekers() {
         return jobSeekersService.getAllJobSeekers();
     }
 
     @GetMapping("/getAllPage")
-    public DataResult<List<JobSeekersDto>> getAllPage(int pageNo, int pageSize) {
+    public DataResult<List<JobSeekersGetDto>> getAllPage(int pageNo, int pageSize) {
         return jobSeekersService.getAllPage(pageNo,pageSize);
     }
 

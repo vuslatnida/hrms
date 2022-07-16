@@ -86,7 +86,7 @@ public class JobSeekerListExcelHelper {
             cell.setCellStyle(rowCellStyle);
 
             cell = dataRow.createCell(6);
-            cell.setCellValue(jobSeeker.getSystemPersonnel().getJobposition());
+            cell.setCellValue(jobSeeker.getPerson().getJobposition());
             sheet.autoSizeColumn(6);
             cell.setCellStyle(rowCellStyle);
         }

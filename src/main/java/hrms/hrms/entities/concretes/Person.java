@@ -4,6 +4,7 @@ import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 @Data
 @Entity
 @Table(name="person")
@@ -21,4 +22,7 @@ public class Person {
 
     @Column(name="last_name")
     private String lastName;
+
+    @Column(name = "job_position")
+    private String jobposition;
 }

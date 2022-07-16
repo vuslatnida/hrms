@@ -74,7 +74,7 @@ public class JobSeekerListPdfHelper {
             table1.addCell(jobSeeker.getBirthYear());
             table1.addCell(jobSeeker.getEmail());
             table1.addCell(jobSeeker.getPassword());
-            table1.addCell(jobSeeker.getSystemPersonnel().getJobposition());
+            table1.addCell(jobSeeker.getPerson().getJobposition());
 
             table2.addCell(jobSeeker.getEmail());
             table2.addCell(jobSeeker.getPassword());

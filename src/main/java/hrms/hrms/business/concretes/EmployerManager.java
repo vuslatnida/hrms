@@ -2,18 +2,16 @@ package hrms.hrms.business.concretes;
 
 import hrms.hrms.business.abstracts.EmployerService;
 import hrms.hrms.core.dataAccess.abstracts.WebMailDao;
+import hrms.hrms.core.entities.dtos.EmployerGetDto;
 import hrms.hrms.core.utilities.excelHelper.EmployerListExcelHelper;
 import hrms.hrms.core.utilities.pdfHelper.EmployerListPdfHelper;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.dataAccess.abstracts.EmployerDao;
 import hrms.hrms.dataAccess.abstracts.PersonDao;
-import hrms.hrms.dataAccess.abstracts.SystemPersonnelDao;
 import hrms.hrms.entities.concretes.Employer;
 import hrms.hrms.entities.concretes.Person;
-import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.EmployerDto;
 
-import hrms.hrms.entities.concretes.dtos.request.PhoneNoDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -35,40 +33,38 @@ public class EmployerManager implements EmployerService {
     @Autowired
     private WebMailDao webMailDao;
 
-    @Autowired
-    private SystemPersonnelDao systemPersonnelDao;
+    private EmployerGetDto convertEntityToDto(Employer employer){
+        EmployerGetDto newEmployerGetDto = new EmployerGetDto();
+        newEmployerGetDto.setId(employer.getId());
+        newEmployerGetDto.setFirstName(employer.getPerson().getFirstName());
+        newEmployerGetDto.setLastName(employer.getPerson().getLastName());
+        newEmployerGetDto.setJobposition(employer.getPerson().getJobposition());
+        newEmployerGetDto.setPassword(employer.getPassword());
+        newEmployerGetDto.setPhoneNo(employer.getPhoneNo());
+        newEmployerGetDto.setWebsite(employer.getWebsite());
+        newEmployerGetDto.setWebsiteMail(employer.getWebsiteMail());
+        newEmployerGetDto.setCompanyName(employer.getCompanyName());
 
-    private EmployerDto convertEntityToDto(Employer employer){
-        EmployerDto newEmployerDto = new EmployerDto();
-        newEmployerDto.setFirstName(employer.getPerson().getFirstName());
-        newEmployerDto.setLastName(employer.getPerson().getLastName());
-        newEmployerDto.setJobposition(employer.getSystemPersonnel().getJobposition());
-        newEmployerDto.setPassword(employer.getPassword());
-        newEmployerDto.setPhoneNo(employer.getPhoneNo());
-        newEmployerDto.setWebsite(employer.getWebsite());
-        newEmployerDto.setWebsiteMail(employer.getWebsiteMail());
-        newEmployerDto.setCompanyName(employer.getCompanyName());
-
-        return newEmployerDto;
+        return newEmployerGetDto;
     }
 
     @Override
-    public  DataResult<List<EmployerDto>> getAllEmployers() {
-        return new SuccessDataResult<List<EmployerDto>>(employerDao.findAll()
+    public  DataResult<List<EmployerGetDto>> getAllEmployers() {
+        return new SuccessDataResult<List<EmployerGetDto>>(employerDao.findAll()
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList()), "Bilgiler listelendi.");
     }
 
     @Override
-    public DataResult<List<EmployerDto>> getAllPage(int pageNo, int pageSize) {
+    public DataResult<List<EmployerGetDto>> getAllPage(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of((pageNo-1),pageSize);
 
         if(employerDao.findAll(pageable).getContent().size() == 0){
-            return new ErrorDataResult<List<EmployerDto>>("Kullanıcı bulunamadı.");
+            return new ErrorDataResult<List<EmployerGetDto>>("Kullanıcı bulunamadı.");
         }
         else{
-            return new SuccessDataResult<List<EmployerDto>>(employerDao.findAll(pageable).getContent()
+            return new SuccessDataResult<List<EmployerGetDto>>(employerDao.findAll(pageable).getContent()
                     .stream()
                     .map(this::convertEntityToDto)
                     .collect(Collectors.toList()), "Bilgiler sayfa numarası ve sırasına göre getiriliyor.");
@@ -84,10 +80,8 @@ public class EmployerManager implements EmployerService {
         else {
             Employer newEmployer = new Employer();
             Person newPerson = new Person();
-            SystemPersonnel newSystemPersonnel = new SystemPersonnel();
 
-            newSystemPersonnel.setJobposition(employerDto.getJobposition());
-
+            newPerson.setJobposition(employerDto.getJobposition());
             newPerson.setFirstName(employerDto.getFirstName());
             newPerson.setLastName(employerDto.getLastName());
 
@@ -98,9 +92,7 @@ public class EmployerManager implements EmployerService {
             newEmployer.setWebsiteMail(employerDto.getWebsiteMail());
 
             newEmployer.setPerson(newPerson);
-            newEmployer.setSystemPersonnel(newSystemPersonnel);
 
-            systemPersonnelDao.save(newEmployer.getSystemPersonnel());
             personDao.save(newEmployer.getPerson());
             employerDao.save(newEmployer);
             return new SuccessResult("Kişi listeye eklendi.");
@@ -108,14 +100,14 @@ public class EmployerManager implements EmployerService {
     }
 
     @Override
-    public Result deleteEmployer(PhoneNoDto phoneNoDto) {
-        if(employerDao.existsByIdAndPhoneNo(phoneNoDto.getId(), phoneNoDto.getPhoneNo())){
-            employerDao.deleteById(phoneNoDto.getId());
+    public Result deleteEmployer(int id) {
+        if(employerDao.existsById(id)){
+            employerDao.deleteById(id);
             return new SuccessResult("Kişi listeden silindi.");
         }
 
         else{
-            return new ErrorResult("Kişi listeden silinemedi.");
+            return new ErrorResult(id + " id numarasına ait kullanıcı bulunamadı.");
         }
     }
 

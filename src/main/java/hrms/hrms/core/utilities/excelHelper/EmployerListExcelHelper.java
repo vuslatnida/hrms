@@ -92,7 +92,7 @@ public class EmployerListExcelHelper {
             cell.setCellStyle(rowCellStyle);
 
             cell = dataRow.createCell(7);
-            cell.setCellValue(employee.getSystemPersonnel().getJobposition());
+            cell.setCellValue(employee.getPerson().getJobposition());
             sheet.autoSizeColumn(7);
             cell.setCellStyle(rowCellStyle);
         }

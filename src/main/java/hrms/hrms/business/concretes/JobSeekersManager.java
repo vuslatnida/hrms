@@ -2,15 +2,14 @@ package hrms.hrms.business.concretes;
 
 import hrms.hrms.business.abstracts.JobSeekersService;
 import hrms.hrms.core.dataAccess.abstracts.IdentificationNoEmailDao;
+import hrms.hrms.core.entities.dtos.JobSeekersGetDto;
 import hrms.hrms.core.utilities.excelHelper.JobSeekerListExcelHelper;
 import hrms.hrms.core.utilities.pdfHelper.JobSeekerListPdfHelper;
 import hrms.hrms.core.utilities.results.*;
 import hrms.hrms.dataAccess.abstracts.JobSeekersDao;
 import hrms.hrms.dataAccess.abstracts.PersonDao;
-import hrms.hrms.dataAccess.abstracts.SystemPersonnelDao;
 import hrms.hrms.entities.concretes.JobSeekers;
 import hrms.hrms.entities.concretes.Person;
-import hrms.hrms.entities.concretes.SystemPersonnel;
 import hrms.hrms.entities.concretes.dtos.request.IdentificationNoDto;
 import hrms.hrms.entities.concretes.dtos.JobSeekersDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,39 +33,37 @@ public class JobSeekersManager implements JobSeekersService {
     @Autowired
     private PersonDao personDao;
 
-    @Autowired
-    private SystemPersonnelDao systemPersonnelDao;
+    private JobSeekersGetDto convertEntityToDto(JobSeekers jobSeekers){
+        JobSeekersGetDto newJobSeekersGetDto = new JobSeekersGetDto();
+        newJobSeekersGetDto.setId(jobSeekers.getId());
+        newJobSeekersGetDto.setBirthYear(jobSeekers.getBirthYear());
+        newJobSeekersGetDto.setEmail(jobSeekers.getEmail());
+        newJobSeekersGetDto.setFirstName(jobSeekers.getPerson().getFirstName());
+        newJobSeekersGetDto.setLastName(jobSeekers.getPerson().getLastName());
+        newJobSeekersGetDto.setJobposition(jobSeekers.getPerson().getJobposition());
+        newJobSeekersGetDto.setPassword(jobSeekers.getPassword());
+        newJobSeekersGetDto.setIdentificationNo(jobSeekers.getIdentificationNo());
 
-    private JobSeekersDto convertEntityToDto(JobSeekers jobSeekers){
-        JobSeekersDto newJobSeekersDto = new JobSeekersDto();
-        newJobSeekersDto.setBirthYear(jobSeekers.getBirthYear());
-        newJobSeekersDto.setEmail(jobSeekers.getEmail());
-        newJobSeekersDto.setFirstName(jobSeekers.getPerson().getFirstName());
-        newJobSeekersDto.setLastName(jobSeekers.getPerson().getLastName());
-        newJobSeekersDto.setJobposition(jobSeekers.getSystemPersonnel().getJobposition());
-        newJobSeekersDto.setPassword(jobSeekers.getPassword());
-        newJobSeekersDto.setIdentificationNo(jobSeekers.getIdentificationNo());
-
-        return newJobSeekersDto;
+        return newJobSeekersGetDto;
     }
 
     @Override
-    public DataResult<List<JobSeekersDto>> getAllJobSeekers() {
-        return new SuccessDataResult<List<JobSeekersDto>>(jobSeekersDao.findAll()
+    public DataResult<List<JobSeekersGetDto>> getAllJobSeekers() {
+        return new SuccessDataResult<List<JobSeekersGetDto>>(jobSeekersDao.findAll()
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList()), "Bilgiler listelendi.");
     }
 
     @Override
-    public DataResult<List<JobSeekersDto>> getAllPage(int pageNo, int pageSize) {
+    public DataResult<List<JobSeekersGetDto>> getAllPage(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of((pageNo-1),pageSize);
 
         if(jobSeekersDao.findAll(pageable).getContent().size() == 0){
-            return new ErrorDataResult<List<JobSeekersDto>>("Kullanıcı bulunamadı.");
+            return new ErrorDataResult<List<JobSeekersGetDto>>("Kullanıcı bulunamadı.");
         }
         else{
-            return new SuccessDataResult<List<JobSeekersDto>>(jobSeekersDao.findAll(pageable).getContent()
+            return new SuccessDataResult<List<JobSeekersGetDto>>(jobSeekersDao.findAll(pageable).getContent()
                     .stream()
                     .map(this::convertEntityToDto)
                     .collect(Collectors.toList()), "Bilgiler sayfa numarası ve sırasına göre getiriliyor.");
@@ -82,10 +79,8 @@ public class JobSeekersManager implements JobSeekersService {
         else {
             JobSeekers newJobSeekers = new JobSeekers();
             Person newPerson = new Person();
-            SystemPersonnel newSystemPersonnel = new SystemPersonnel();
 
-            newSystemPersonnel.setJobposition(jobSeekersDto.getJobposition());
-
+            newPerson.setJobposition(jobSeekersDto.getJobposition());
             newPerson.setFirstName(jobSeekersDto.getFirstName());
             newPerson.setLastName(jobSeekersDto.getLastName());
 
@@ -95,9 +90,7 @@ public class JobSeekersManager implements JobSeekersService {
             newJobSeekers.setPassword(jobSeekersDto.getPassword());
 
             newJobSeekers.setPerson(newPerson);
-            newJobSeekers.setSystemPersonnel(newSystemPersonnel);
 
-            systemPersonnelDao.save(newSystemPersonnel);
             personDao.save(newPerson);
             jobSeekersDao.save(newJobSeekers);
 

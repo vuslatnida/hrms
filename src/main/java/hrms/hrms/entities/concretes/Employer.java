@@ -36,8 +36,4 @@ public class Employer {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "person_id")
     private Person person;
-
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "system_personnel_id")
-    private SystemPersonnel systemPersonnel;
 }

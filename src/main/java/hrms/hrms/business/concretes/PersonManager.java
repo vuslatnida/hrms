@@ -1,12 +1,12 @@
 package hrms.hrms.business.concretes;
 
 import hrms.hrms.business.abstracts.PersonService;
+import hrms.hrms.core.entities.dtos.PersonGetDto;
 import hrms.hrms.core.utilities.results.DataResult;
 import hrms.hrms.core.utilities.results.ErrorDataResult;
 import hrms.hrms.core.utilities.results.SuccessDataResult;
 import hrms.hrms.dataAccess.abstracts.PersonDao;
 import hrms.hrms.entities.concretes.Person;
-import hrms.hrms.entities.concretes.dtos.PersonDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -21,31 +21,32 @@ public class PersonManager implements PersonService {
     @Autowired
     private PersonDao personDao;
 
-    private PersonDto convertEntityToDto(Person person){
-        PersonDto newPersonDto = new PersonDto();
-        newPersonDto.setFirstName(person.getFirstName());
-        newPersonDto.setLastName(person.getLastName());
+    private PersonGetDto convertEntityToDto(Person person){
+        PersonGetDto newPersonGetDto = new PersonGetDto();
+        newPersonGetDto.setFirstName(person.getFirstName());
+        newPersonGetDto.setLastName(person.getLastName());
+        newPersonGetDto.setJobposition(person.getJobposition());
 
-        return newPersonDto;
+        return newPersonGetDto;
     }
 
     @Override
-    public DataResult<List<PersonDto>> getAllPersons() {
-        return new SuccessDataResult<List<PersonDto>>(personDao.findAll()
+    public DataResult<List<PersonGetDto>> getAllPersons() {
+        return new SuccessDataResult<List<PersonGetDto>>(personDao.findAll()
                 .stream()
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList()), "Bilgiler listelendi.");
     }
 
     @Override
-    public DataResult<List<PersonDto>> getAllPage(int pageNo, int pageSize) {
+    public DataResult<List<PersonGetDto>> getAllPage(int pageNo, int pageSize) {
         Pageable pageable = PageRequest.of((pageNo-1),pageSize);
 
         if(personDao.findAll(pageable).getContent().size() == 0){
-            return new ErrorDataResult<List<PersonDto>>("Kullanıcı bulunamadı.");
+            return new ErrorDataResult<List<PersonGetDto>>("Kullanıcı bulunamadı.");
         }
         else{
-            return new SuccessDataResult<List<PersonDto>>(personDao.findAll(pageable).getContent()
+            return new SuccessDataResult<List<PersonGetDto>>(personDao.findAll(pageable).getContent()
                     .stream()
                     .map(this::convertEntityToDto)
                     .collect(Collectors.toList()), "Bilgiler sayfa numarası ve sırasına göre getiriliyor.");
