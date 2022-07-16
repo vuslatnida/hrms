@@ -33,5 +33,4 @@ public class JobSeekers {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "person_id")
     private Person person;
-
 }

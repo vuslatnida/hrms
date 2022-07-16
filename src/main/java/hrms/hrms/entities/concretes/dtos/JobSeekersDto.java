@@ -45,5 +45,4 @@ public class JobSeekersDto {
     @NotNull
     @NotBlank
     private String jobposition;
-
 }
