@@ -135,18 +135,41 @@ public class EmployerManager implements EmployerService {
 
     @Override
     public Result updateEmployerPhoneNo(int id, String phoneNo) {
-        Employer newEmployer = employerDao.findById(id);
-        newEmployer.setPhoneNo(phoneNo);
-        employerDao.save(newEmployer);
-        return new SuccessResult("Kişinin telefon numarası güncellendi.");
+        if(employerDao.existsById(id)){
+            if(employerDao.existsByPhoneNo(phoneNo)){
+                return new ErrorResult("Bu telefon numarası bir başkasına aittir.");
+            }
+
+            else if (phoneNo.length() == 11) {
+                Employer newEmployer = employerDao.findById(id);
+                newEmployer.setPhoneNo(phoneNo);
+                employerDao.save(newEmployer);
+                return new SuccessResult("Kişinin telefon numarası güncellendi.");
+            }
+
+            else {
+                return new ErrorResult("Lütfen telefon numaranızın karakter sayısına dikkat ediniz.");
+            }
+        }
+
+        else {
+            return new ErrorResult(id + " id numarasına ait bir kullanıcı bulunamadı.");
+        }
+
     }
 
     @Override
     public Result updateEmployerPassword(int id, String password) {
-        Employer newEmployer = employerDao.findById(id);
-        newEmployer.setPassword(password);
-        employerDao.save(newEmployer);
-        return new SuccessResult("Kişinin şifresi güncellendi.");
+        if(employerDao.existsById(id)){
+            Employer newEmployer = employerDao.findById(id);
+            newEmployer.setPassword(password);
+            employerDao.save(newEmployer);
+            return new SuccessResult("Kişinin şifresi güncellendi.");
+        }
+
+        else {
+            return new ErrorResult(id + " id numarasına ait bir kullanıcı bulunamadı.");
+        }
     }
 
     @Override
