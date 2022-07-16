@@ -65,6 +65,5 @@ public class EmployerListPdfHelper {
         document.addTitle("Employer PDF işlemleri");
 
         document.close();
-
     }
 }

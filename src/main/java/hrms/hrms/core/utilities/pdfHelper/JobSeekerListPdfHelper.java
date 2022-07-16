@@ -89,6 +89,5 @@ public class JobSeekerListPdfHelper {
         document.add(table2);
 
         document.close();
-
     }
 }
