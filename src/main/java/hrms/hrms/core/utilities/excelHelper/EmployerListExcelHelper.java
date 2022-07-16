@@ -101,6 +101,5 @@ public class EmployerListExcelHelper {
         workbook.write(outputStream);
         workbook.close();
         outputStream.close();
-
     }
 }

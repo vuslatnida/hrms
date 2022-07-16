@@ -95,6 +95,5 @@ public class JobSeekerListExcelHelper {
         workbook.write(outputStream);
         workbook.close();
         outputStream.close();
-
     }
 }
