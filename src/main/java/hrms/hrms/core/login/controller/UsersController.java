@@ -44,7 +44,7 @@ public class UsersController {
 
         if(authenticate != null){
             model.addAttribute("userLogin", authenticate.getLogin());
-            return "redirect:/swagger-ui/index.html";
+            return "redirect:/swagger-ui/";
         }
 
         else {
