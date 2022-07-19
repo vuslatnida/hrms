@@ -23,6 +23,7 @@ public class PersonManager implements PersonService {
 
     private PersonGetDto convertEntityToDto(Person person){
         PersonGetDto newPersonGetDto = new PersonGetDto();
+        newPersonGetDto.setId(person.getId());
         newPersonGetDto.setFirstName(person.getFirstName());
         newPersonGetDto.setLastName(person.getLastName());
         newPersonGetDto.setJobposition(person.getJobposition());

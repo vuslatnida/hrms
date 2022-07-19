@@ -88,7 +88,7 @@ public class UserManager implements UserService {
             }
 
             catch (Exception ex){
-                return new ErrorDataResult<UserLoginResponseDto>("Giriş yapmadan önce şifrenizi yenileyiniz.");
+                return new ErrorDataResult<UserLoginResponseDto>("Giriş yapmadan önce şifrenizi değiştiriniz.");
             }
 
             String jwt = jwtUtils.generateJwtToken(user);
