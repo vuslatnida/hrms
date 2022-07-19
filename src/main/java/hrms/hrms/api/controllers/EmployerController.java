@@ -27,7 +27,7 @@ public class EmployerController {
     @Autowired
     private EmployerService employerService;
 
-    @GetMapping("/getAllEmployer")
+    @GetMapping("/getAll")
     public DataResult<List<EmployerGetDto>> getAllEmployer(){
         return employerService.getAllEmployers();
     }
@@ -37,12 +37,12 @@ public class EmployerController {
         return employerService.getAllPage(pageNo,pageSize);
     }
 
-    @PostMapping(name = "/addEmployer")
+    @PostMapping("/add")
     public ResponseEntity<?> addEmployer(@Valid @RequestBody EmployerDto employerDto) {
         return ResponseEntity.ok(employerService.addEmployer(employerDto));
     }
 
-    @DeleteMapping(name = "/deleteEmployer")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteEmployer(@RequestParam int id){
         return ResponseEntity.ok(employerService.deleteEmployer(id));
     }
@@ -67,12 +67,12 @@ public class EmployerController {
         return ResponseEntity.ok(employerService.updatePassword(id,password));
     }
 
-    @GetMapping("/exportToExcelEmployer")
+    @GetMapping("/Excel")
     public ResponseEntity<?> exportToExcelEmployer(HttpServletResponse response) throws IOException {
         return ResponseEntity.ok(employerService.exportToExcelEmployer(response));
     }
 
-    @GetMapping("/exportToPdfEmployer")
+    @GetMapping("/Pdf")
     public ResponseEntity<?> exportToPdfEmployer(HttpServletResponse response) throws IOException {
         return ResponseEntity.ok(employerService.exportToPdfEmployer(response));
     }

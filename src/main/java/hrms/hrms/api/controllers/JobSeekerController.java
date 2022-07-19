@@ -26,7 +26,7 @@ public class JobSeekerController {
     @Autowired
     private JobSeekersService jobSeekersService;
 
-    @GetMapping("/getAllJobSeekers")
+    @GetMapping("/getAll")
     public DataResult<List<JobSeekersGetDto>> getAlljobSeekers() {
         return jobSeekersService.getAllJobSeekers();
     }
@@ -36,12 +36,12 @@ public class JobSeekerController {
         return jobSeekersService.getAllPage(pageNo,pageSize);
     }
 
-    @PostMapping(name = "/addJobSeekers")
+    @PostMapping("/add")
     public ResponseEntity<?> addJobSeekers(@Valid @RequestBody JobSeekersDto jobSeekersDto) {
         return ResponseEntity.ok(jobSeekersService.addJobSeekers(jobSeekersDto));
     }
 
-    @DeleteMapping(name = "/deleteJobSeeker")
+    @DeleteMapping("/delete")
     public ResponseEntity<?> deleteJobSeeker(@RequestParam int id) {
         return ResponseEntity.ok(jobSeekersService.deleteJobSeeker(id));
     }
@@ -56,12 +56,12 @@ public class JobSeekerController {
         return jobSeekersService.getByIdentificationNoContains(identificationNo);
     }
 
-    @GetMapping("/exportToExcelJobSeekers")
+    @GetMapping("/Excel")
     public ResponseEntity<?> exportToExcelJobSeekers(HttpServletResponse response) throws IOException {
         return ResponseEntity.ok(jobSeekersService.exportToExcelJobSeekers(response));
     }
 
-    @GetMapping("/exportToPdfJobSeekers")
+    @GetMapping("/Pdf")
     public ResponseEntity<?> exportToPdfJobSeekers(HttpServletResponse response) throws IOException {
         return ResponseEntity.ok(jobSeekersService.exportToPdfJobSeekers(response));
     }

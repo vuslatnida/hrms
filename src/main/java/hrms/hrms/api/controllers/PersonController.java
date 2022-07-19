@@ -22,7 +22,7 @@ public class PersonController {
     @Autowired
     private PersonService personService;
 
-    @GetMapping("/getAllPersons")
+    @GetMapping("/getAll")
     public DataResult<List<PersonGetDto>> getAllPersons() {
         return personService.getAllPersons();
     }
