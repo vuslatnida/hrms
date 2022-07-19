@@ -1,7 +1,7 @@
 package hrms.hrms.business.concretes;
 
 import hrms.hrms.business.abstracts.JobSeekersService;
-import hrms.hrms.core.dataAccess.abstracts.IdentificationNoEmailDao;
+import hrms.hrms.core.dataAccess.IdentificationNoEmailDao;
 import hrms.hrms.core.entities.dtos.JobSeekersGetDto;
 import hrms.hrms.core.utilities.excelHelper.JobSeekerListExcelHelper;
 import hrms.hrms.core.utilities.pdfHelper.JobSeekerListPdfHelper;

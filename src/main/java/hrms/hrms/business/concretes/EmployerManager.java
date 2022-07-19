@@ -1,7 +1,7 @@
 package hrms.hrms.business.concretes;
 
 import hrms.hrms.business.abstracts.EmployerService;
-import hrms.hrms.core.dataAccess.abstracts.WebMailDao;
+import hrms.hrms.core.dataAccess.WebMailDao;
 import hrms.hrms.core.entities.dtos.EmployerGetDto;
 import hrms.hrms.core.utilities.excelHelper.EmployerListExcelHelper;
 import hrms.hrms.core.utilities.pdfHelper.EmployerListPdfHelper;
