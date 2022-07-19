@@ -112,8 +112,6 @@ public class UserManager implements UserService {
         }
     }
 
-
-
     @Override
     public Result changePassword(UserChangePasswordDto userChangePasswordRequestDto) {
         try{
@@ -127,7 +125,7 @@ public class UserManager implements UserService {
                 return new ErrorResult("Şifre Değiştirilemez");
             }
             user.setPassword(passwordEncoder.encode(userChangePasswordRequestDto.getPassword()));
-            user.setIsPasswordChanged(false); // şifre değiştirildi false
+            user.setIsPasswordChanged(false);
             userDao.save(user);
             return new SuccessResult();
         }
